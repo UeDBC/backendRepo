@@ -6,28 +6,31 @@ from django.db import models
 
 class Encuesta(models.Model):
     """docstring for Encuesta"""
-    encuesta = models.CharField(verbose_name='ID Encuesta', max_length=256)
+    identificador = models.CharField(verbose_name='ID Encuesta', max_length=256)
     fecha = models.DateField()
     vivienda = models.OneToOneField('Vivienda', null=True, blank=True)
 
+    def __unicode__(self):
+        return u'Encuesta %s' % self.identificador
+
 
 class Vivienda(models.Model):
+    """docstring for Vivienda"""
     OP_AGUA = (
         ('Agua de red', 'red'),
         ('Agua de Pozo', 'pozo'),
         ('Otra fuente de agua', 'otra')
     )
-    """docstring for Vivienda"""
 
     pueblo = models.ForeignKey('Pueblo', null=True, blank=True)
     calle = models.CharField(max_length=256, null=True, blank=True)
     numero = models.IntegerField(null=True, blank=True)
-    manzana = models.IntegerField(max_length=256, null=True, blank=True)
+    manzana = models.IntegerField(null=True, blank=True)
     lote = models.IntegerField(null=True, blank=True)
     # fuente de contaminacion
     # latitud
     # longitud
-    agua = models.BooleanField(verbose_name='Tiene agua de red?', choices=OP_AGUA)
+    agua = models.CharField(max_length=256, verbose_name='Tiene agua de red?', choices=OP_AGUA)
     pavimento = models.BooleanField(verbose_name='Calle Pavimentada')
     # tapa_tanque = models.BooleanField(label='Los tanques de agua tienen tapa?')
     # limpieza_tanque = models.BooleanField(label='Ha realizado limpieza de tanque de agua durante el último año?')
@@ -57,11 +60,17 @@ class Individuo(models.Model):
     # tiempo en localidad =
     vivienda = models.ForeignKey('Vivienda', blank=False, null=False)
 
+    def __unicode__(self):
+        return self.nombres
+
 
 class Pueblo(models.Model):
     """docstring for Pueblo"""
     nombre = models.CharField(max_length=256)
     # factores_de_contaminacion = models.ManyToManyField('FactoresContaminacion')
+
+    def __unicode__(self):
+        return self.nombre
 
 
 # class PercepcionRiesgoAmbiental(object):
@@ -80,18 +89,12 @@ class Pueblo(models.Model):
 #     danios_animales
 #     ninios_expuestos
 
+# class Patologia(models.Model):
+#     identificador = models.CharField(max_length=256)
+#     nombre = models.CharField(max_length=256)
 
-
-#     def __init__(self, arg):
-#         super(PercepcionRiesgoAmbiental, self).__init__()
-#         self.arg = arg
-
-
-
-# Vivienda
-
-# Patologia
-
+#     def __unicode__(self):
+#         return self.nombre
 
 # Embarazo
 
