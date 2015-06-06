@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Encuesta, Pueblo, Individuo, Vivienda
+from .models import Encuesta, Pueblo, Individuo, Vivienda, Patologia
 
 
 class IndividuoInline(admin.StackedInline):
@@ -18,3 +18,4 @@ admin.site.register(Encuesta)
 admin.site.register(Pueblo)
 admin.site.register(Individuo)
 admin.site.register(Vivienda, ViviendaAdmin)
+admin.site.register(Patologia)
