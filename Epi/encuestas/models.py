@@ -30,7 +30,8 @@ class Vivienda(models.Model):
     # fuente de contaminacion
     # latitud
     # longitud
-    agua = models.CharField(max_length=256, verbose_name='Tiene agua de red?', choices=OP_AGUA)
+    agua = models.CharField(max_length=256, verbose_name='Tiene agua de red?',
+                            choices=OP_AGUA)
     pavimento = models.BooleanField(verbose_name='Calle Pavimentada')
     # tapa_tanque = models.BooleanField(label='Los tanques de agua tienen tapa?')
     # limpieza_tanque = models.BooleanField(label='Ha realizado limpieza de tanque de agua durante el último año?')
@@ -52,7 +53,7 @@ class Individuo(models.Model):
     sexo = models.CharField(max_length=256, choices=OP_SEXO)
     tiempo_residencia = models.IntegerField(default=0)
     problema_salud = models.BooleanField(verbose_name='Problemas de salud en los ultimos 20 años')
-    # patologias = models.ManyToManyField('ProblemaSalud', verbose_name='Patologías')
+    patologias = models.ManyToManyField('Patologia', verbose_name='Patologías')
     # estado_de_salud / patologias
     # nivel_educativo
     # ocupacion
@@ -68,6 +69,14 @@ class Pueblo(models.Model):
     """docstring for Pueblo"""
     nombre = models.CharField(max_length=256)
     # factores_de_contaminacion = models.ManyToManyField('FactoresContaminacion')
+
+    def __unicode__(self):
+        return self.nombre
+
+
+class Patologia(models.Model):
+    identificador = models.CharField(max_length=256)
+    nombre = models.CharField(max_length=256)
 
     def __unicode__(self):
         return self.nombre
@@ -89,12 +98,6 @@ class Pueblo(models.Model):
 #     danios_animales
 #     ninios_expuestos
 
-# class Patologia(models.Model):
-#     identificador = models.CharField(max_length=256)
-#     nombre = models.CharField(max_length=256)
-
-#     def __unicode__(self):
-#         return self.nombre
 
 # Embarazo
 
