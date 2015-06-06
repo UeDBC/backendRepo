@@ -8,7 +8,7 @@ class Encuesta(models.Model):
     """docstring for Encuesta"""
     encuesta = models.CharField(verbose_name='ID Encuesta', max_length=256)
     fecha = models.DateField()
-    vivienda = models.OneToOneField('Vivienda')
+    vivienda = models.OneToOneField('Vivienda', null=True, blank=True)
 
 
 class Vivienda(models.Model):
@@ -19,11 +19,11 @@ class Vivienda(models.Model):
     )
     """docstring for Vivienda"""
 
-    pueblo = models.ForeignKey('Pueblo')
-    calle = models.CharField(max_length=256)
-    numero = models.IntegerField()
-    manzana = models.CharField(max_length=256)
-    lote = models.IntegerField()
+    pueblo = models.ForeignKey('Pueblo', null=True, blank=True)
+    calle = models.CharField(max_length=256, null=True, blank=True)
+    numero = models.IntegerField(null=True, blank=True)
+    manzana = models.IntegerField(max_length=256, null=True, blank=True)
+    lote = models.IntegerField(null=True, blank=True)
     # fuente de contaminacion
     # latitud
     # longitud
@@ -60,8 +60,7 @@ class Individuo(models.Model):
 
 class Pueblo(models.Model):
     """docstring for Pueblo"""
-
-    nombres = models.CharField(max_length=256)
+    nombre = models.CharField(max_length=256)
     # factores_de_contaminacion = models.ManyToManyField('FactoresContaminacion')
 
 
