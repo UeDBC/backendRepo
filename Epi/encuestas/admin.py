@@ -7,7 +7,7 @@ from .models import Encuesta, Pueblo, Individuo, Vivienda, Patologia
 
 class IndividuoInline(admin.StackedInline):
     model = Individuo
-    extra = 3
+    extra = 1
 
 
 class ViviendaAdmin(admin.ModelAdmin):

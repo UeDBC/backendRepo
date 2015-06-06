@@ -81,7 +81,6 @@ class Patologia(models.Model):
     def __unicode__(self):
         return self.nombre
 
-
 # class PercepcionRiesgoAmbiental(object):
 #     """docstring for PercepcionRiesgoAmbiental"""
 
