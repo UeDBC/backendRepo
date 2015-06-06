@@ -16,6 +16,35 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from rest_framework import routers, viewsets
+
+from encuestas.models import Encuesta, Pueblo, Vivienda
+from encuestas.serializers import EncuestaSerializer, ViviendaSerializer, PuebloSerializer
+
+
+# ViewSets define the view behavior.
+class EncuestaViewSet(viewsets.ModelViewSet):
+    queryset = Encuesta.objects.all()
+    serializer_class = EncuestaSerializer
+
+
+class ViviendaViewSet(viewsets.ModelViewSet):
+    queryset = Vivienda.objects.all()
+    serializer_class = ViviendaSerializer
+
+
+class PuebloViewSet(viewsets.ModelViewSet):
+    queryset = Pueblo.objects.all()
+    serializer_class = PuebloSerializer
+
+# Routers provide an easy way of automatically determining the URL conf.
+router = routers.DefaultRouter()
+router.register(r'encuestas', EncuestaViewSet)
+router.register(r'viviendas', ViviendaViewSet)
+router.register(r'pueblos', PuebloViewSet)
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
