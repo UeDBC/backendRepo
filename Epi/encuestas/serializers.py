@@ -8,13 +8,13 @@ class EncuestaSerializer(serializers.ModelSerializer):
         model = Encuesta
 
 
-class ViviendaSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Vivienda
-
-
 class PuebloSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pueblo
+
+
+class ViviendaSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Vivienda
