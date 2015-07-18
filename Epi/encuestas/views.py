@@ -14,6 +14,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from datetime import datetime
 # Create your views here.
 # ViewSets define the view behavior.
 class EncuestaViewSet(viewsets.ModelViewSet):
@@ -51,5 +52,11 @@ class EncuestaJSON(views.APIView):
 
     def post(self, request, format=None):
         #RECIBE EL JSON DE LA ENCUESTA COMPLETA
-        print request.data
+        datos = request.data
+        for dato in datos:
+            encuesta = Encuesta()
+            encuesta.fecha = datetime.utcfromtimestamp(dato['fechaUnixTimestamp'])
+            encuesta.identificador = dato['identificador']
+            encuesta.vivienda = Vivienda.objects.get(pk=dato['vivienda']['id']) 
+
 

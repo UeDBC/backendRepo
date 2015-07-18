@@ -37,6 +37,8 @@ class Vivienda(models.Model):
     # limpieza_tanque = models.BooleanField(label='Ha realizado limpieza de tanque de agua durante el último año?')
     num_fallecidos = models.IntegerField(default=0)
 
+    def __unicode__(self):
+        return u"%s %s, %s" % (self.calle, self.numero, self.pueblo) 
 
 class Individuo(models.Model):
     """docstring for Individuo"""
