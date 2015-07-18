@@ -1,12 +1,18 @@
 from django.shortcuts import render
 
-from rest_framework import viewsets
+from rest_framework import viewsets, views, authentication, permissions
 
 from encuestas.models import Encuesta, Vivienda, Pueblo, Individuo, Patologia
+
 from encuestas.serializers import (EncuestaSerializer, ViviendaSerializer,
                                    PuebloSerializer, IndividuoSerializer,
                                    PatologiaSerializer)
 
+
+from rest_framework.decorators import api_view
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 # Create your views here.
 # ViewSets define the view behavior.
@@ -33,3 +39,17 @@ class IndividuoViewSet(viewsets.ModelViewSet):
 class PatologiaViewSet(viewsets.ModelViewSet):
     queryset = Patologia.objects.all()
     serializer_class = PatologiaSerializer
+
+
+class EncuestaJSON(views.APIView):
+
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
+    #authentication_classes = (authentication.TokenAuthentication,)
+    #permission_classes = (permissions.IsAdminUser,)
+
+
+    def post(self, request, format=None):
+        #RECIBE EL JSON DE LA ENCUESTA COMPLETA
+        print request.data
+
